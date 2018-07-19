@@ -57,8 +57,8 @@ def validate_repetition(input_data):
 
 # @new_timer
 # @print_generator
-def validate_and_process_data_as_list(input_data):
-    """ Generator(f) that validate, process and yield not repeated data """
+def validate_repetition_as_list(input_data):
+    """ Generator(f) that validate and yield not repeated data as List """
     temp = ['', '', '']
     for _, d in input_data.iterrows():
         # skip entry with empty username
@@ -111,6 +111,7 @@ def parse_user_info(username, data):
 
 
 def parse_user_info_dict(username, user_dict: dict):
+    username = username.upper()
     empty_list = ['', '', '', '']
     value = user_dict.get(username, empty_list)
     return value
@@ -121,7 +122,7 @@ def create_user_dict(data) -> dict:
     user_dict = {}
     for _, d in data.iterrows():
         d = [str(l).replace('\xa0', ' ') for l in d.tolist()]
-        user_dict[d[0]] = d[1:]
+        user_dict[d[0].upper()] = d[1:]
     return user_dict
 
 
@@ -129,7 +130,7 @@ def create_user_dict(data) -> dict:
 def create_data_frame(raw_data, user_data, lang='PL'):
     column_list = column_setter(lang)
     df = pd.DataFrame(columns=column_list)
-    for value in validate_and_process_data_as_list(raw_data):
+    for value in validate_repetition_as_list(raw_data):
         # new_data.loc[len(new_data)] = value
         row = [value[0]] + process_datetime(value) + parse_user_info(value[0], user_data)
         row_s = pd.Series(row, column_list)
@@ -141,7 +142,7 @@ def create_data_frame(raw_data, user_data, lang='PL'):
 def create_data_frame_dict(raw_data, user_dict: dict, lang='PL'):
     column_list = column_setter(lang)
     df = pd.DataFrame(columns=column_list)
-    for value in validate_and_process_data_as_list(raw_data):
+    for value in validate_repetition_as_list(raw_data):
         # new_data.loc[len(new_data)] = value
         row = [value[0]] + process_datetime(value) + parse_user_info_dict(value[0], user_dict)
         row_s = pd.Series(row, column_list)
