@@ -83,9 +83,9 @@ def validate_and_process_data_as_list(input_data):
 def column_setter(lang: str) -> list:
     column_dict = {
         'PL': ['UserName', 'Data rozpoczęcia txt', 'Godzina rozpoczęcia', 'Długość sesji (min)', 'Data Rozpoczęcia',
-               'Imię Nazwisko', 'Stanowisko', 'Jedn. Org.', 'Status'],
+               'Imię', 'Nazwisko', 'Płeć', 'Status'],
         'EN': ['UserName', 'Start Date txt', 'Start Time', 'Session length (min)', 'Start Date',
-               'Firstname Lastname', 'Position', 'Organizational Unit', 'Status']
+               'Firstname', 'Lastname', 'Sex', 'Status']
     }
     return column_dict.get(lang, column_dict.get('EN'))
 
