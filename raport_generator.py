@@ -43,7 +43,6 @@ def validate_repetition(input_data):
         # if username is changed yield and change temp
         if temp[0] != d[0]:
             if not pd.isnull(temp[0]):
-                print()
                 yield temp
             temp = d
         # if username is the same
